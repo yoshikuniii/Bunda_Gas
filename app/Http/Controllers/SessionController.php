@@ -32,7 +32,7 @@ class SessionController extends Controller
         if (Auth::attempt($login_info)) { // if user login success
             return redirect('penjualan_gas')->with('success','Login berhasil');
         } else {
-            return redirect('session')->withErrors('Email or password incorrect');
+            return redirect('login')->withErrors('Email or password incorrect');
         }
     }
 
@@ -66,6 +66,6 @@ class SessionController extends Controller
 
         User::create($data);
 
-        return redirect('session')->with('success', 'Akun berhasil dibuat! Silakan login.');
+        return redirect('/login')->with('success', 'Akun berhasil dibuat! Silakan login.');
     }
 }

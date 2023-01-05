@@ -22,13 +22,13 @@ Route::get('/', function () {
 
 
 Route::resource('penjualan_gas', GasController::class)->middleware('userLoginStatus');
-Route::resource('penjualan_galon', GalonController::class);
+Route::resource('penjualan_galon', GalonController::class)->middleware('userLoginStatus');
 
 # Login, Logout, Register
-Route::get('/login', [SessionController::class, 'index'])->middleware('userGuestStatus');
+Route::get('login', [SessionController::class, 'index'])->middleware('userGuestStatus');
 
 Route::post('session/login', [SessionController::class, 'login'])->middleware('userGuestStatus');
 Route::get('session/logout', [SessionController::class, 'logout']);
 
-Route::get('/register', [SessionController::class, 'register'])->middleware('userGuestStatus');
+Route::get('register', [SessionController::class, 'register'])->middleware('userGuestStatus');
 Route::post('session/create', [SessionController::class, 'create'])->middleware('userGuestStatus');
