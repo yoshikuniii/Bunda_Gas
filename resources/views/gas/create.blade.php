@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- START FORM -->
-<form action='{{ url("penjualan_gas") }}' method='post'>
+<form action='{{ url("dashboard/penjualan_gas") }}' method='post'>
     @csrf
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <div class="mb-3 row">
@@ -24,10 +24,7 @@
         <div class="mb-3 row">
             <label for="tanggal_pembelian" class="col-sm-2 col-form-label">Tanggal Pembelian</label>
             <div class="col-sm-10">
-                <div class='input-group date' id='CalendarDateTime'>
-                    <input type='text' value="{{ date('Y-m-d H:i:s') }}" name="tanggal_pembelian" id="tanggal_pembelian" class="form-control" type="datetime-local" />
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
+                <input type='text' value="{{ date('Y-m-d H:i:s') }}" name="tanggal_pembelian" id="tanggal_pembelian" class="form-control" type="datetime-local" />
             </div>
         </div>
 

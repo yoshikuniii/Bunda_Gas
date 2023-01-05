@@ -30,7 +30,7 @@ class SessionController extends Controller
         ];
 
         if (Auth::attempt($login_info)) { // if user login success
-            return redirect('penjualan_gas')->with('success','Login berhasil');
+            return redirect('dashboard')->with('success','Login berhasil');
         } else {
             return redirect('login')->withErrors('Email or password incorrect');
         }
@@ -38,7 +38,7 @@ class SessionController extends Controller
 
     function logout() {
         Auth::logout();
-        return redirect('/login')->with('success', 'berhasil logout');
+        return redirect('/login');
     }
 
     function register() {

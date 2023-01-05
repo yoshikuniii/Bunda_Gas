@@ -19,7 +19,7 @@ class userGuestStatus
     {
         // return $next($request);
         if(Auth::check()) {
-            return redirect('/penjualan_gas')->with('success', 'Selamat datang kembali, ' . Auth::user()->name . '!');
+            return redirect('dashboard')->with('success', 'Selamat datang kembali, ' . Auth::user()->name . '!');
         } else {
             return $next($request); 
         }

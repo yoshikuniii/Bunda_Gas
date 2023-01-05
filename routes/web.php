@@ -20,9 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function() {
+    return view('dashboard.index');
+})->middleware('userLoginStatus');
 
-Route::resource('penjualan_gas', GasController::class)->middleware('userLoginStatus');
-Route::resource('penjualan_galon', GalonController::class)->middleware('userLoginStatus');
+Route::resource('dashboard/penjualan_gas', GasController::class)->middleware('userLoginStatus');
+Route::resource('dashboard/penjualan_galon', GalonController::class)->middleware('userLoginStatus');
 
 # Login, Logout, Register
 Route::get('login', [SessionController::class, 'index'])->middleware('userGuestStatus');

@@ -80,7 +80,7 @@ class GasController extends Controller
         ];
 
         Gas::create($data);
-        return redirect()->to('penjualan_gas')->with('success', 'Data added successfully!');
+        return redirect()->to('dashboard/penjualan_gas')->with('success', 'Data added successfully!');
     }
 
     /**
@@ -136,7 +136,7 @@ class GasController extends Controller
         ];
 
         Gas::where('id', $id)->update($data);
-        return redirect()->to('penjualan_gas')->with('success', 'Data updated successfully!');
+        return redirect()->to('dashboard/penjualan_gas')->with('success', 'Data updated successfully!');
     }
 
     /**
@@ -148,6 +148,6 @@ class GasController extends Controller
     public function destroy($id)
     {
         Gas::where('id', $id)->delete();
-        return redirect()->to('penjualan_gas')->with('success', 'Data deleted!');
+        return redirect()->to('dashboard/penjualan_gas')->with('success', 'Data deleted!');
     }
 }
