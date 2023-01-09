@@ -91,8 +91,7 @@ class GalonController extends Controller
      */
     public function show($id)
     {
-        $data = Galon::where('id', $id)->first();
-        return view('galon.edit')->with('data', $data);
+        //
     }
 
     /**
@@ -116,7 +115,28 @@ class GalonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'jumlah_galon' => 'required|numeric',
+            'tanggal_pembelian' => 'required',
+            'nama_pengirim' => 'required',
+            'nama_penerima' => 'required',
+            'alamat_penerima' => 'required',
+            'nomor_telepon_penerima' => 'required',
+        ]);
+
+        $data = [
+            // 'id' => $request->id,
+            'jenis_galon' => $request->jenis_galon,
+            'jumlah_galon' => $request->jumlah_galon,
+            'tanggal_pembelian' => $request->tanggal_pembelian,
+            'nama_pengirim' => $request->nama_pengirim,
+            'nama_penerima' => $request->nama_penerima,
+            'alamat_penerima' => $request->alamat_penerima,
+            'nomor_telepon_penerima' => $request->nomor_telepon_penerima
+        ];
+
+        Galon::where('id', $id)->update($data);
+        return redirect()->to('dashboard/penjualan_galon')->with('success', 'Data updated successfully!');
     }
 
     /**

@@ -1,8 +1,14 @@
 @extends('layout.template')
 @section('content')
 
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Edit Log</h1>
+<!-- <p class="mb-4">
+    Deskripsi Page di sini
+</p> -->
+
 <!-- START FORM -->
-<form action="{{ url('penjualan_gas/'.$data->id)}}" method='post'>
+<form action="{{ url('dashboard/penjualan_gas/'.$data->id)}}" method='post'>
     @csrf
     @method('PUT')
     <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -11,8 +17,8 @@
             <div class="col-sm-10">
                 <select class="form-control" id="jenis_gas" name="jenis_gas">
                   <option value="3kg" @selected($data->jenis_gas == '3kg')>3kg</option>        
-                  <option value="12kg" @selected($data->jenis_gas == '12kg')>12kg</option>              
-              </select>
+                  <option value="12kg" @selected($data->jenis_gas == '12kg')>12kg</option>           
+                </select>
             </div>
         </div>
         <div class="mb-3 row">

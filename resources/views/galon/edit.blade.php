@@ -1,8 +1,14 @@
 @extends('layout.template')
 @section('content')
 
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Edit Log</h1>
+<!-- <p class="mb-4">
+    Deskripsi Page di sini
+</p> -->
+
 <!-- START FORM -->
-<form action="{{ url('penjualan_galon/'.$data->id)}}" method='post'>
+<form action="{{ url('dashboard/penjualan_galon/'.$data->id)}}" method='post'>
     @csrf
     @method('PUT')
     <div class="my-3 p-3 bg-body rounded shadow-sm">

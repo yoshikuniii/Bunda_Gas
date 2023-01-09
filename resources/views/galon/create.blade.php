@@ -1,6 +1,12 @@
 @extends('layout.template')
 @section('content')
 
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Buat Laporan Baru</h1>
+<!-- <p class="mb-4">
+    Deskripsi Page di sini
+</p> -->
+
 <!-- START FORM -->
 <form action='{{ url("dashboard/penjualan_galon") }}' method='post'>
     @csrf

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GasController;
 use App\Http\Controllers\GalonController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+# Profile User
+Route::resource('/user', UserController::class)->middleware('userLoginStatus');
+
+# Dashboard
 Route::get('/dashboard', function() {
     return view('dashboard.index');
 })->middleware('userLoginStatus');
 
+# Penjualan
 Route::resource('dashboard/penjualan_gas', GasController::class)->middleware('userLoginStatus');
 Route::resource('dashboard/penjualan_galon', GalonController::class)->middleware('userLoginStatus');
 
