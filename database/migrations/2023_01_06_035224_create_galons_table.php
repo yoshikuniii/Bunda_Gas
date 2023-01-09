@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('galons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('jenis_gas');
-            $table->integer('jumlah_gas');
+            $table->string('jenis_galon');
+            $table->integer('jumlah_galon');
             $table->dateTime('tanggal_pembelian');
             $table->string('nama_pengirim');
             $table->string('nama_penerima');
