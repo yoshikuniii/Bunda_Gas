@@ -15,30 +15,24 @@ class UserController extends Controller
         return view('user.index');
     }
 
-    public function edit($id) 
+    public function update(Request $request)
     {
-        $data = User::where('id', $id)->first();
-        return view('user.index')->with('data', $data);
-    }
-
-    public function update(Request $request, $id)
-    {
-        Session::flash('email', $request->email);
         Session::flash('name', $request->name);
+        // Session::flash('email', $request->email);
 
         $request->validate([
             'name'=>'required',
-            'email'=>'required|email',
+            // 'email'=>'required|email',
         ],[
             // message control
         ]);
 
         $data = [
             'name'=> $request->name,
-            'email' => $request->email,
+            // 'email' => $request->email,
         ];
 
-        User::where('id', $id)->update($data);
+        User::where('id', Auth::user()->id)->update($data);
         return redirect()->to('dashboard')->with('success', 'Data updated successfully!');
     }
 }

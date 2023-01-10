@@ -1,27 +1,31 @@
 @extends('layout.template')
 @section('content')
 
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Penjualan Galon</h1>
-<!-- <p class="mb-4">
-    Deskripsi Page di sini
-</p> -->
+ <!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Penjualan Gas</h1>
+    <!-- <p class="mb-4">
+        Deskripsi Page di sini
+    </p> -->
+    <a href="{{ url('dashboard/penjualan_galon/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Tambah Data</a>
+</div>
 
 <!-- START DATA -->
 <div class="my-3 p-3 bg-body rounded shadow-sm">
-    <!-- FORM PENCARIAN -->
-    <div class="pb-3">
-      <form class="d-flex" action="" method="get">
-          <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-          <button class="btn btn-secondary" type="submit">Cari</button>
-      </form>
-    </div>
-        
-        <!-- TOMBOL TAMBAH DATA -->
-    <div class="pb-3">
-      <a href='{{ url("dashboard/penjualan_galon/create") }}' class="btn btn-primary">+ Tambah Laporan</a>
-    </div>
 
+    <!-- FORM PENCARIAN -->
+    <form class="" action="" method="get">
+        <div class="input-group mb-3">
+            <input type="search" name="katakunci" value="{{ Request::get('katakunci') }}" class="form-control" placeholder="Cari data..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- CONTAINER TABEL -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
@@ -56,6 +60,7 @@
                             <td>{{ $item->nama_penerima }}</td>
                             <td>{{ $item->alamat_penerima }}</td>
                             <td>{{ $item->nomor_telepon_penerima }}</td>
+                            @if (Auth::user()->role == 'admin')
                             <td>
                                 <a href="{{ url('dashboard/penjualan_galon/'.$item->id.'/edit') }}" class="btn btn-warning btn-icon-split btn-sm">
                                     <span class="icon text-white-50">
@@ -77,6 +82,7 @@
                                     </button>
                                 </form>
                             </td>
+                            @endif
                         </tr>
                         <?php $i++ ?>
                         @endforeach
