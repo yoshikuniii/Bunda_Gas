@@ -33,6 +33,37 @@ class UserController extends Controller
         ];
 
         User::where('id', Auth::user()->id)->update($data);
-        return redirect()->to('dashboard')->with('success', 'Data updated successfully!');
+        return redirect()->to('user')->with('success', 'Data updated successfully!');
+    }
+
+    public function changePassword()
+    {
+        return view('user.change-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|min:8',
+            'password' => 'required|min:8|confirmed'
+        ]);
+
+        # check apakah password yang dimaksukan pada form 'current_password'
+        # sama dengan password yang ada di database. Kalo sama, update passwordnya.
+
+        $password_check = Hash::check(
+            $request->current_password,
+            Auth::user()->password
+        );
+
+        if ($password_check) { # if true
+            User::where('id', Auth::user()->id)->update([
+                'password' => Hash::make($request->password)
+            ]);
+            return redirect()->to('user')->with('success','Password berhasil diganti.');
+
+        } else {
+            return redirect()->to('user')->withErrors('Password lama yang Anda masukan tidak sesuai dengan database.');
+        }
     }
 }

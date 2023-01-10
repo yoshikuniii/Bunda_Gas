@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 # Profile User
-Route::resource('/user', UserController::class)->middleware('userLoginStatus');
+Route::resource('user', UserController::class)->middleware('userLoginStatus');
 
 # Dashboard
 Route::get('/dashboard', function() {
@@ -33,11 +33,18 @@ Route::get('/dashboard', function() {
 Route::resource('dashboard/penjualan_gas', GasController::class)->middleware('userLoginStatus');
 Route::resource('dashboard/penjualan_galon', GalonController::class)->middleware('userLoginStatus');
 
-# Login, Logout, Register
+# Login, Logout, Register, Change Password
 Route::get('login', [SessionController::class, 'index'])->middleware('userGuestStatus');
 
+# 1. Login
 Route::post('session/login', [SessionController::class, 'login'])->middleware('userGuestStatus');
 Route::get('session/logout', [SessionController::class, 'logout']);
 
+# 2. Register
 Route::get('register', [SessionController::class, 'register'])->middleware('userGuestStatus');
 Route::post('session/create', [SessionController::class, 'create'])->middleware('userGuestStatus');
+
+# 3. Change Password
+Route::get('change-password', [UserController::class, 'changePassword'])->middleware('userLoginStatus');
+Route::post('change-password', [UserController::class, 'updatePassword'])->middleware('userLoginStatus');
+
