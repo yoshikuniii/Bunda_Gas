@@ -3,11 +3,11 @@
 
  <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Penjualan Gas</h1>
+    <h1 class="h3 mb-0 text-gray-800">Penjualan Galon</h1>
     <!-- <p class="mb-4">
         Deskripsi Page di sini
     </p> -->
-    <a href="{{ url('dashboard/penjualan_galon/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Tambah Data</a>
+    <a href="{{ url('dashboard/penjualan_galon/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm">Tambah Data  <i class="fas fa-plus fa-sm text-white-50"></i></a>
 </div>
 
 <!-- START DATA -->

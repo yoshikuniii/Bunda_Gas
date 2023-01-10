@@ -7,7 +7,7 @@
     <!-- <p class="mb-4">
         Deskripsi Page di sini
     </p> -->
-    <a href="{{ url('dashboard/penjualan_gas/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Tambah Data</a>
+    <a href="{{ url('dashboard/penjualan_gas/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm">Tambah Data  <i class="fas fa-plus fa-sm text-white-50"></i></a>
 </div>
 
 <!-- START DATA -->
