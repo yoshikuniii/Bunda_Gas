@@ -28,28 +28,12 @@
 		    </div>
 		</div>
 
-		@if (Auth::user()->role == 'admin')
 		<div class="mb-3 row">
 		    <label for="name" class="col-sm-2 col-form-label">Role</label>
 		    <div class="col-sm-10">
-		    	<select class="form-control" id="role" name="role">
-                  <option value="admin" @selected(Auth::user()->role == 'admin')>admin</option>        
-                  <option value="staff" @selected(Auth::user()->role == 'staff')>staff</option>           
-                </select>
+		    	<input type="text" value="{{ Auth::user()->role }}" class="form-control" name='role' id="role" disabled>
 		    </div>
 		</div>
-		@endif
-
-		@if (Auth::user()->role == 'staff')
-		<div class="mb-3 row">
-		    <label for="name" class="col-sm-2 col-form-label">Role</label>
-		    <div class="col-sm-10">
-		    	<select class="form-control" id="role" name="role">    
-                  <option value="staff" @selected(Auth::user()->role == 'staff')>staff</option>           
-                </select>
-		    </div>
-		</div>
-		@endif
 
 		<div class="mb-3 row">
             <label for="" class="col-sm-2 col-form-label"></label>

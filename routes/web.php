@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GasController;
 use App\Http\Controllers\GalonController;
 use App\Http\Controllers\SessionController;
@@ -25,9 +26,7 @@ Route::get('/', function () {
 Route::resource('user', UserController::class)->middleware('userLoginStatus');
 
 # Dashboard
-Route::get('/dashboard', function() {
-    return view('dashboard.index');
-})->middleware('userLoginStatus');
+Route::get('dashboard', [DashboardController::class, 'index'])->middleware('userLoginStatus');
 
 # Penjualan
 Route::resource('dashboard/penjualan_gas', GasController::class)->middleware('userLoginStatus');
