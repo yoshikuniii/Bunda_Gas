@@ -25,29 +25,25 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        // fungsi ini akan membuat data random penjualan selama setahun
+        // fungsi ini akan membuat random data untuk penjualan
         $currentYear = date("Y", time());
         $startDate = strtotime("$currentYear-01-01 00:00:00"); // first date of current year on unix timestamp
-        $jenisGalon = array("aqua", "vit");
-        $jenisGas = array("3kg", "12kg");
+        $jenisBarang = array("gas", "galon");
+        $merkBarang = array("aqua", "vit", "3kg", "12kg");
         $namaOrang = array("Padil", "Rojak", "Jaka", "Ijas", "Rayan", "Sapwan");
 
-        for ($i = 0; $i < 365; $i++) {
-            $newDate = $startDate + ($i * 60 * 60 * 24);
-            DB::table('gases')->insert([
-                'jenis_gas' => $jenisGas[rand(0,1)],
-                'jumlah_gas' => rand(5,30),
-                'tanggal_pembelian' => date("Y-m-d H:i:s", $newDate),
-                'nama_pengirim' => $namaOrang[rand(0,5)],
-                'nama_penerima' => $namaOrang[rand(0,5)],
-                'alamat_penerima' => 'alamat',
-                'nomor_telepon_penerima' => '0812-0000-0000'
-            ]);
+        $dataToInsert = 20; // set berapa banyak data yang ingin dimasukan dari seeder
 
-            DB::table('galons')->insert([
-                'jenis_galon' => $jenisGalon[rand(0,1)],
-                'jumlah_galon' => rand(5,30),
-                'tanggal_pembelian' => date("Y-m-d H:i:s", $newDate),
+        for ($i = 0; $i < $dataToInsert; $i++) {
+            $newDate = $startDate + ($i * 60 * 60 * 24);
+            DB::table('penjualans')->insert([
+                'id_transaksi' => time()+$i,
+                'jenis_barang' => $jenisBarang[rand(0,1)],
+                'merk_barang' => $merkBarang[rand(0,3)],
+                // 'id_barang' => rand(1,4),
+                'jumlah_barang' => rand(5,25),
+                'tanggal_transaksi' => date("Y-m-d H:i:s", $newDate),
+                'id_pengirim' => 1,
                 'nama_pengirim' => $namaOrang[rand(0,5)],
                 'nama_penerima' => $namaOrang[rand(0,5)],
                 'alamat_penerima' => 'alamat',
@@ -55,13 +51,39 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-
         // buat akun admin default, silakan ganti passwordnya nanti
         DB::table('users')->insert([
             'name'=>'admin',
             'email'=>'admin@domain.com',
             'password'=>Hash::make('12345678'),
-            'role'=>'admin'
+            'role'=>'admin',
+            'alamat'=>'earth',
+            'nomor_telepon'=>'911'
+        ]);
+
+        // buat bikin data barang
+        DB::table('barangs')->insert([
+            'jenis' => 'gas',
+            'merk' => '3kg',
+            'harga_jual' => 18000,
+        ]);
+
+        DB::table('barangs')->insert([
+            'jenis' => 'gas',
+            'merk' => '12kg',
+            'harga_jual' => 52000,
+        ]);
+
+        DB::table('barangs')->insert([
+            'jenis' => 'galon',
+            'merk' => 'aqua',
+            'harga_jual' => 17000,
+        ]);
+
+        DB::table('barangs')->insert([
+            'jenis' => 'galon',
+            'merk' => 'vit',
+            'harga_jual' => 16000,
         ]);
     }
 }

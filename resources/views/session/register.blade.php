@@ -43,6 +43,12 @@
                                     <input type="text" value="{{ Session::get('name') }}" class="form-control form-control-user" id="name" name="name" placeholder="Full name">
                                 </div>
                                 <div class="form-group">
+                                    <input type="text" value="{{ Session::get('name') }}" class="form-control form-control-user" id="alamat" name="alamat" placeholder="Address">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" value="{{ Session::get('name') }}" class="form-control form-control-user" id="nomor_telepon" name="nomor_telepon" placeholder="Phone Number">
+                                </div>
+                                <div class="form-group">
                                     <input type="email" value="{{ Session::get('email') }}" class="form-control form-control-user" id="email" name="email" placeholder="Email Address">
                                 </div>
                                 <div class="form-group">

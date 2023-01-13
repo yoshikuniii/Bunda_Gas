@@ -8,29 +8,47 @@
 </p> -->
 
 <!-- START FORM -->
-<form action='{{ url("dashboard/penjualan_gas") }}' method='post'>
+<form action='{{ url("penjualan") }}' method='post'>
     @csrf
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <div class="mb-3 row">
-            <label for="jenis_gas" class="col-sm-2 col-form-label">Jenis Gas</label>
+            <label for="jenis_gas" class="col-sm-2 col-form-label">Jenis Barang</label>
             <div class="col-sm-10">
-                <select class="form-control" id="jenis_gas" name="jenis_gas" required focus>
-                  <option value="3kg">3kg</option>        
-                  <option value="12kg">12kg</option>              
-              </select>
+                <select class="form-control" id="jenis_barang" name="jenis_barang" required focus>
+                    <option value="none" selected disabled hidden>Pilih Jenis Barang</option>
+                    @for ($i = 0; $i < count($jenis); $i++)
+                        <option value="{{ $jenis[$i] }}">{{ $jenis[$i] }}</option>
+                    @endfor
+                </select>
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="jumlah_gas" class="col-sm-2 col-form-label">Jumlah Gas</label>
+            <label for="jenis_gas" class="col-sm-2 col-form-label">Merk/Tipe Barang</label>
             <div class="col-sm-10">
-                <input type="number" value="{{ Session::get('jumlah_gas') }}" class="form-control" name='jumlah_gas' id="jumlah_gas">
+                <select class="form-control" id="merk_barang" name="merk_barang" required focus>
+                    <option value="none" selected disabled hidden>Pilih Merk/Tipe Barang</option>
+                    @for ($i = 0; $i < count($jenis); $i++)
+                        <optgroup label="{{ $jenis[$i] }}"></option>
+                            @foreach ($merk as $m)
+                                @if ($m->jenis == $jenis[$i])
+                                    <option value="{{ $m->merk }}">{{ $m->merk }}</option>
+                                @endif
+                            @endforeach
+                    @endfor
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="jumlah_gas" class="col-sm-2 col-form-label">Jumlah Barang</label>
+            <div class="col-sm-10">
+                <input type="number" value="{{ Session::get('jumlah_barang') }}" class="form-control" name='jumlah_barang' id="jumlah_barang">
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label for="tanggal_pembelian" class="col-sm-2 col-form-label">Tanggal Pembelian</label>
+            <label for="tanggal_transaksi" class="col-sm-2 col-form-label">Tanggal Transaksi</label>
             <div class="col-sm-10">
-                <input type='text' value="{{ date('Y-m-d H:i:s') }}" name="tanggal_pembelian" id="tanggal_pembelian" class="form-control" type="datetime-local" />
+                <input type='text' value="{{ date('Y-m-d H:i:s') }}" name="tanggal_transaksi" id="tanggal_transaksi" class="form-control" type="datetime-local" />
             </div>
         </div>
 

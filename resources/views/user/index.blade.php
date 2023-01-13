@@ -29,6 +29,20 @@
 		</div>
 
 		<div class="mb-3 row">
+		    <label for="name" class="col-sm-2 col-form-label">Alamat</label>
+		    <div class="col-sm-10">
+		    	<input type="text" value="{{ Auth::user()->alamat }}" class="form-control" name='alamat' id="alamat">
+		    </div>
+		</div>
+
+		<div class="mb-3 row">
+		    <label for="name" class="col-sm-2 col-form-label">Nomor Telepon</label>
+		    <div class="col-sm-10">
+		    	<input type="text" value="{{ Auth::user()->nomor_telepon }}" class="form-control" name='nomor_telepon' id="nomor_telepon">
+		    </div>
+		</div>
+
+		<div class="mb-3 row">
 		    <label for="name" class="col-sm-2 col-form-label">Role</label>
 		    <div class="col-sm-10">
 		    	<input type="text" value="{{ Auth::user()->role }}" class="form-control" name='role' id="role" disabled>

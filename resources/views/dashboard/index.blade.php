@@ -18,7 +18,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Earnings (Monthly)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{ $pendapatan_bulan_ini }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -208,7 +208,7 @@
 	      callbacks: {
 	        label: function(tooltipItem, chart) {
 	          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-	          return tooltipItem.yLabel + ' Gas terjual';
+	          return tooltipItem.yLabel + ' Item terjual';
 	        }
 	      }
 	    }
@@ -220,7 +220,7 @@
 	  data: {
 	    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 	    datasets: [{
-	      label: "Jumlah Penjualan Gas",
+	      label: "Jumlah Penjualan Galon",
 	      lineTension: 0.3,
 	      backgroundColor: "rgba(78, 115, 223, 0.05)",
 	      borderColor: "rgba(78, 115, 223, 1)",
@@ -296,7 +296,7 @@
 	      callbacks: {
 	        label: function(tooltipItem, chart) {
 	          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-	          return tooltipItem.yLabel + ' Gas terjual';
+	          return tooltipItem.yLabel + ' Item terjual';
 	        }
 	      }
 	    }

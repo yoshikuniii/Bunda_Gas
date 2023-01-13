@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GasController;
-use App\Http\Controllers\GalonController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 
@@ -29,8 +28,7 @@ Route::resource('user', UserController::class)->middleware('userLoginStatus');
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware('userLoginStatus');
 
 # Penjualan
-Route::resource('dashboard/penjualan_gas', GasController::class)->middleware('userLoginStatus');
-Route::resource('dashboard/penjualan_galon', GalonController::class)->middleware('userLoginStatus');
+Route::resource('penjualan', PenjualanController::class)->middleware('userLoginStatus');
 
 # Login, Logout, Register, Change Password
 Route::get('login', [SessionController::class, 'index'])->middleware('userGuestStatus');

@@ -18,22 +18,25 @@ class UserController extends Controller
     public function update(Request $request)
     {
         Session::flash('name', $request->name);
-        // Session::flash('email', $request->email);
+        Session::flash('alamat', $request->alamat);
+        Session::flash('nomor_telepon', $request->nomor_telepon);
 
         $request->validate([
             'name'=>'required',
-            // 'email'=>'required|email',
+            'alamat' => 'required',
+            'nomor_telepon' => 'required'
         ],[
             // message control
         ]);
 
         $data = [
             'name'=> $request->name,
-            // 'email' => $request->email,
+            'alamat' => $request->alamat,
+            'nomor_telepon' => $request->nomor_telepon
         ];
 
         User::where('id', Auth::user()->id)->update($data);
-        return redirect()->to('user')->with('success', 'Data updated successfully!');
+        return redirect()->to('user')->with('success', 'Data Anda berhasil diperbarui!');
     }
 
     public function changePassword()

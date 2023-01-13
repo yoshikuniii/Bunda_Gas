@@ -3,11 +3,11 @@
 
  <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Penjualan Gas</h1>
+    <h1 class="h3 mb-0 text-gray-800">Penjualan</h1>
     <!-- <p class="mb-4">
         Deskripsi Page di sini
     </p> -->
-    <a href="{{ url('dashboard/penjualan_gas/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm">Tambah Data  <i class="fas fa-plus fa-sm text-white-50"></i></a>
+    <a href="{{ url('penjualan/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm">Tambah Data  <i class="fas fa-plus fa-sm text-white-50"></i></a>
 </div>
 
 <!-- START DATA -->
@@ -29,7 +29,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                Data Penjualan Gas
+                Data Penjualan
             </h6>
         </div>
         <div class="card-body">
@@ -38,9 +38,10 @@
                     <thead>
                         <tr>
                             <th class="col-md-1">No</th>
-                            <th class="col-md-1">Jenis Gas</th>
-                            <th class="col-md-1">Jumlah Gas</th>
-                            <th class="col-md-2">Tanggal Pembelian</th>
+                            <th class="col-md-1">Jenis Barang</th>
+                            <th class="col-md-1">Merk Barang</th>
+                            <th class="col-md-1">Jumlah Barang</th>
+                            <th class="col-md-2">Tanggal Transaksi</th>
                             <th class="col-md-2">Nama Pengirim</th>
                             <th class="col-md-2">Nama Penerima</th>
                             <th class="col-md-2">Alamat</th>
@@ -53,16 +54,17 @@
                         @foreach ($data as $item)
                         <tr>
                             <td>{{ $i }}</td>
-                            <td>{{ $item->jenis_gas }}</td>
-                            <td>{{ $item->jumlah_gas }}</td>
-                            <td>{{ $item->tanggal_pembelian }}</td>
+                            <td>{{ $item->jenis_barang }}</td>
+                            <td>{{ $item->merk_barang }}</td>
+                            <td>{{ $item->jumlah_barang }}</td>
+                            <td>{{ $item->tanggal_transaksi }}</td>
                             <td>{{ $item->nama_pengirim }}</td>
                             <td>{{ $item->nama_penerima }}</td>
                             <td>{{ $item->alamat_penerima }}</td>
                             <td>{{ $item->nomor_telepon_penerima }}</td>
                             @if (Auth::user()->role == 'admin')
                             <td>
-                                <a href="{{ url('dashboard/penjualan_gas/'.$item->id.'/edit') }}" class="btn btn-warning btn-icon-split btn-sm">
+                                <a href="{{ url('penjualan/'.$item->id.'/edit') }}" class="btn btn-warning btn-icon-split btn-sm">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-exclamation-triangle"></i>
                                     </span>
@@ -70,7 +72,7 @@
                                 </a>
                                 <!-- <a href="" class="btn btn-warning">Edit</a> -->
 
-                                <form onsubmit="return confirm('Delete this entry?')" class='d-inline' action="{{ url('dashboard/penjualan_gas/'.$item->id) }}" method="post">
+                                <form onsubmit="return confirm('Hapus data ini?')" class='d-inline' action="{{ url('penjualan/'.$item->id) }}" method="post">
                                     @csrf 
                                     @method('DELETE')
                                     <!-- <button type="submit" name="submit" class="btn btn-danger">Hapus</button> -->

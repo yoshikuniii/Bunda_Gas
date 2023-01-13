@@ -52,7 +52,9 @@ class SessionController extends Controller
         $request->validate([
             'name'=>'required',
             'email'=>'required|email|unique:users',
-            'password'=>'required|min:8'
+            'password'=>'required|min:8',
+            'alamat'=>'required',
+            'nomor_telepon'=>'required'
         ],[
             // message control
         ]);
@@ -60,6 +62,8 @@ class SessionController extends Controller
         $data = [
             'name'=> $request->name,
             'email' => $request->email,
+            'alamat' => $request->alamat,
+            'nomor_telepon' => $request->nomor_telepon,
             'role' => 'staff',
             'password' => Hash::make($request->password)
         ];

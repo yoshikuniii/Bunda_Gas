@@ -8,31 +8,49 @@
 </p> -->
 
 <!-- START FORM -->
-<form action="{{ url('dashboard/penjualan_galon/'.$data->id)}}" method='post'>
+<form action="{{ url('penjualan/'.$data->id)}}" method='post'>
     @csrf
     @method('PUT')
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <div class="mb-3 row">
-            <label for="jenis_galon" class="col-sm-2 col-form-label">Jenis galon</label>
+            <label for="jenis_gas" class="col-sm-2 col-form-label">Jenis Barang</label>
             <div class="col-sm-10">
-                <select class="form-control" id="jenis_galon" name="jenis_galon">
-                  <option value="aqua" @selected($data->jenis_galon == 'aqua')>aqua</option>        
-                  <option value="vit" @selected($data->jenis_galon == 'vit')>vit</option>              
-              </select>
+                <select class="form-control" id="jenis_barang" name="jenis_barang" required focus>
+                    <option value="none" selected disabled hidden>Pilih Jenis Barang</option>
+                    @for ($i = 0; $i < count($jenis); $i++)
+                        <option value="{{ $jenis[$i] }}" @selected($data->jenis_barang == $jenis[$i])>{{ $jenis[$i] }}</option>
+                    @endfor
+                </select>
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="jumlah_galon" class="col-sm-2 col-form-label">Jumlah galon</label>
+            <label for="jenis_gas" class="col-sm-2 col-form-label">Merk/Tipe Barang</label>
             <div class="col-sm-10">
-                <input type="number" value="{{ $data->jumlah_galon }}" class="form-control" name='jumlah_galon' id="jumlah_galon">
+                <select class="form-control" id="merk_barang" name="merk_barang" required focus>
+                    <option value="none" selected disabled hidden>Pilih Merk/Tipe Barang</option>
+                    @for ($i = 0; $i < count($jenis); $i++)
+                        <optgroup label="{{ $jenis[$i] }}"></option>
+                            @foreach ($merk as $m)
+                                @if ($m->jenis == $jenis[$i])
+                                    <option value="{{ $m->merk }}" @selected($data->merk_barang == $m->merk)>{{ $m->merk }}</option>
+                                @endif
+                            @endforeach
+                    @endfor
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="jumlah_gas" class="col-sm-2 col-form-label">Jumlah barang</label>
+            <div class="col-sm-10">
+                <input type="number" value="{{ $data->jumlah_barang }}" class="form-control" name='jumlah_barang' id="jumlah_barang">
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label for="tanggal_pembelian" class="col-sm-2 col-form-label">Tanggal Pembelian</label>
+            <label for="tanggal_transaksi" class="col-sm-2 col-form-label">Tanggal transaksi</label>
             <div class="col-sm-10">
                 <div class='input-group date' id='CalendarDateTime'>
-                    <input type='text' value="{{ $data->tanggal_pembelian }}" name="tanggal_pembelian" id="tanggal_pembelian" class="form-control" type="datetime-local"/>
+                    <input type='text' value="{{ $data->tanggal_transaksi }}" name="tanggal_transaksi" id="tanggal_transaksi" class="form-control" type="datetime-local"/>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
             </div>

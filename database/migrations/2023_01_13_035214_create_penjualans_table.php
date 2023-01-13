@@ -13,15 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('galons', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('jenis_galon');
-            $table->integer('jumlah_galon');
-            $table->dateTime('tanggal_pembelian');
+        Schema::create('penjualans', function (Blueprint $table) {
+            $table->id();
+            $table->integer('id_transaksi')->unique();
+            $table->dateTime('tanggal_transaksi');
+            $table->string('jenis_barang');
+            $table->string('merk_barang');
+            $table->integer('jumlah_barang');
+            $table->integer('id_pengirim');
             $table->string('nama_pengirim');
             $table->string('nama_penerima');
             $table->string('alamat_penerima');
             $table->string('nomor_telepon_penerima');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('galons');
+        Schema::dropIfExists('penjualans');
     }
 };
