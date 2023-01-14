@@ -20,6 +20,9 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('resources/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <!-- Custom styles for this page -->
+    <link href="{{ asset('resources/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -28,7 +31,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('dashboard') }}">
@@ -58,16 +61,32 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Data Penjualan Barang</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <a class="collapse-item" href="{{ url('penjualan') }}">Lihat Logs</a>
                         <a class="collapse-item" href="{{ url('penjualan/create') }}">Tambah Laporan</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Data Barang</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                        <a class="collapse-item" href="{{ url('barang') }}">Lihat Data Barang</a>
+                        <a class="collapse-item" href="{{ url('barang/create') }}">Tambah Barang Baru</a>
                     </div>
                 </div>
             </li>
@@ -84,7 +103,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('user') }}">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Pengaturan Profil</span></a>
+                    <span>Profil Saya</span></a>
             </li>
 
             <!-- Divider -->
@@ -232,6 +251,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('resources/js/sb-admin-2.min.js') }}"></script>
+    
+    <!-- Page level plugins -->
+    <script src="{{ asset('resources/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('resources/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('resources/js/demo/datatables-demo.js') }}"></script>
 </body>
 
 </html>

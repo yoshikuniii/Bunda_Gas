@@ -21,5 +21,5 @@ class Penjualan extends Model
         'nomor_telepon_penerima'
     ];
     protected $table = "penjualans";
-    public $timestamps = false;
+    public $timestamps = true;
 }

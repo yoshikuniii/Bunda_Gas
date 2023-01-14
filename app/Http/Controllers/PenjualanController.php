@@ -19,21 +19,7 @@ class penjualanController extends Controller
      */
     public function index(Request $request)
     {
-        $katakunci = $request->katakunci;
-        $jumlahbaris = 8;
-
-        if (strlen($katakunci)) {
-            $data = Penjualan::where('jenis_barang', 'like', "%$katakunci%")
-                ->orWhere('merk_barang', 'like', "%$katakunci%")
-                ->orWhere('id_transaksi', 'like', "%$katakunci%")
-                ->orWhere('nama_pengirim', 'like', "%$katakunci%")
-                ->orWhere('nama_penerima', 'like', "%$katakunci%")
-                ->orWhere('alamat_penerima', 'like', "%$katakunci%")
-                ->orWhere('nomor_telepon_penerima', 'like', "%$katakunci%")
-                ->paginate($jumlahbaris);
-        } else {
-            $data = Penjualan::orderBy('tanggal_transaksi', 'desc')->paginate($jumlahbaris);
-        }
+        $data = Penjualan::orderBy('tanggal_transaksi', 'desc')->paginate();
 
         return view('penjualan.index')->with('data', $data);
     }
@@ -85,11 +71,11 @@ class penjualanController extends Controller
         $request->validate([
             'jenis_barang' => 'required',
             'merk_barang' => 'required',
-            'jumlah_barang' => 'required|numeric',
+            'jumlah_barang' => 'required|numeric|min:1',
             'tanggal_transaksi' => 'required',
             'nama_pengirim' => 'required',
             'alamat_penerima' => 'required',
-            'nomor_telepon_penerima' => 'required',
+            'nomor_telepon_penerima' => 'required|numeric',
         ]);
 
         $data = [
@@ -162,11 +148,11 @@ class penjualanController extends Controller
         $request->validate([
             'jenis_barang' => 'required',
             'merk_barang' => 'required',
-            'jumlah_barang' => 'required|numeric',
+            'jumlah_barang' => 'required|numeric|min:1',
             'tanggal_transaksi' => 'required',
             'nama_pengirim' => 'required',
             'alamat_penerima' => 'required',
-            'nomor_telepon_penerima' => 'required',
+            'nomor_telepon_penerima' => 'required|numeric',
         ]);
 
         $data = [

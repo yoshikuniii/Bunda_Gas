@@ -40,6 +40,7 @@ class DashboardController extends Controller
             ->where(DB::raw("month(tanggal_transaksi)"), "=", $currentMonth)
             ->where(DB::raw("merk_barang"), "=", Barang::where("id", $i+1)->first()->merk)
             ->pluck("jumlah_barang");
+            // dd();
 
             $harga = Barang::where("id", $i+1)->first()->harga_jual; // harga barang berdasarkan id
             $currentMonthEarning = $currentMonthEarning + ($jumlah_barang[0] * $harga); // hitung pendapatan

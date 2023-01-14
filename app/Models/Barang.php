@@ -14,5 +14,5 @@ class Barang extends Model
         'harga_jual'
     ];
     protected $table = "barangs";
-    public $timestamps = true;
+    public $timestamps = false;
 }

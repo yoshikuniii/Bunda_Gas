@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('jenis');
             $table->string('merk');
             $table->integer('harga_jual');
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

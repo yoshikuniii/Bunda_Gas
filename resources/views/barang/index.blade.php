@@ -3,11 +3,11 @@
 
  <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Penjualan</h1>
+    <h1 class="h3 mb-0 text-gray-800">Barang</h1>
     <!-- <p class="mb-4">
         Deskripsi Page di sini
     </p> -->
-    <a href="{{ url('penjualan/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm">Tambah Data  <i class="fas fa-plus fa-sm text-white-50"></i></a>
+    <a href="{{ url('barang/create') }}" class="d-none d-sm-inline-block btn btn-primary shadow-sm">Tambah Data  <i class="fas fa-plus fa-sm text-white-50"></i></a>
 </div>
 
 <!-- START DATA -->
@@ -17,7 +17,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                Data Penjualan
+                Data Barang
             </h6>
         </div>
         <div class="card-body">
@@ -28,12 +28,7 @@
                             <th class="col-md-1">No</th>
                             <th class="col-md-1">Jenis Barang</th>
                             <th class="col-md-1">Merk Barang</th>
-                            <th class="col-md-1">Jumlah Barang</th>
-                            <th class="col-md-2">Tanggal Transaksi</th>
-                            <th class="col-md-2">Nama Pengirim</th>
-                            <th class="col-md-2">Nama Penerima</th>
-                            <th class="col-md-2">Alamat</th>
-                            <th class="col-md-2">Nomor HP/Telepon</th>
+                            <th class="col-md-1">Harga Jual (Rp)</th>
                             @if (Auth::user()->role == 'admin')
                             <th class="col-md-4">Aksi</th>
                             @endif
@@ -44,17 +39,12 @@
                         @foreach ($data as $item)
                         <tr>
                             <td>{{ $i }}</td>
-                            <td>{{ $item->jenis_barang }}</td>
-                            <td>{{ $item->merk_barang }}</td>
-                            <td>{{ $item->jumlah_barang }}</td>
-                            <td>{{ $item->tanggal_transaksi }}</td>
-                            <td>{{ $item->nama_pengirim }}</td>
-                            <td>{{ $item->nama_penerima }}</td>
-                            <td>{{ $item->alamat_penerima }}</td>
-                            <td>{{ $item->nomor_telepon_penerima }}</td>
+                            <td>{{ $item->jenis}}</td>
+                            <td>{{ $item->merk }}</td>
+                            <td>{{ number_format($item->harga_jual) }}</td>
                             @if (Auth::user()->role == 'admin')
                             <td>
-                                <a href="{{ url('penjualan/'.$item->id.'/edit') }}" class="btn btn-warning btn-icon-split btn-sm">
+                                <a href="{{ url('barang/'.$item->id.'/edit') }}" class="btn btn-warning btn-icon-split btn-sm">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-exclamation-triangle"></i>
                                     </span>
@@ -62,7 +52,7 @@
                                 </a>
                                 <!-- <a href="" class="btn btn-warning">Edit</a> -->
 
-                                <form onsubmit="return confirm('Hapus data ini?')" class='d-inline' action="{{ url('penjualan/'.$item->id) }}" method="post">
+                                <form onsubmit="return confirm('Hapus data ini?')" class='d-inline' action="{{ url('barang/'.$item->id) }}" method="post">
                                     @csrf 
                                     @method('DELETE')
                                     <!-- <button type="submit" name="submit" class="btn btn-danger">Hapus</button> -->
