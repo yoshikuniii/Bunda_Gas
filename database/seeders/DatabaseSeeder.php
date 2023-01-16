@@ -31,8 +31,9 @@ class DatabaseSeeder extends Seeder
         $jenisBarang = array("gas", "galon");
         $merkBarang = array("aqua", "vit", "3kg", "12kg");
         $namaOrang = array("Padil", "Rojak", "Jaka", "Ijas", "Rayan", "Sapwan");
+        $totalHargaBarang = array("18000", "52000", "17000", "16000");
 
-        $dataToInsert = 20; // set berapa banyak data yang ingin dimasukan dari seeder
+        $dataToInsert = 365 * 4; // set berapa banyak data yang ingin dimasukan dari seeder
 
         for ($i = 0; $i < $dataToInsert; $i++) {
             $newDate = $startDate + ($i * 60 * 60 * 24);
@@ -42,6 +43,7 @@ class DatabaseSeeder extends Seeder
                 'merk_barang' => $merkBarang[rand(0,3)],
                 // 'id_barang' => rand(1,4),
                 'jumlah_barang' => rand(5,25),
+                'total_harga' => $totalHargaBarang[rand(0,3)],
                 'tanggal_transaksi' => date("Y-m-d H:i:s", $newDate),
                 'id_pengirim' => 1,
                 'nama_pengirim' => $namaOrang[rand(0,5)],

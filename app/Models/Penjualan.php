@@ -14,6 +14,7 @@ class Penjualan extends Model
         'jenis_barang',
         'merk_barang',
         'jumlah_barang',
+        'total_harga',
         'id_pengirim',
         'nama_pengirim',
         'nama_penerima',

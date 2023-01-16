@@ -1,4 +1,5 @@
 @extends('layout.template')
+@section('title', 'Dashboard')
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -18,7 +19,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Earnings (Monthly)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{ $pendapatan_bulan_ini }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{ $totalMonthEarnings }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -36,7 +37,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Earnings (Annual)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rp{{ $totalYearEarnings }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -47,8 +48,64 @@
     </div>
 </div>
 
-<!-- Content Row -->
+<div class="row">
+	<div class="col-xl-6 col-lg-7">
+		<!-- Collapsable Card Example -->
+	    <div class="card shadow mb-4">
+	        <!-- Card Header - Accordion -->
+	        <a href="#collapseCard" class="d-block card-header py-3" data-toggle="collapse"
+	            role="button" aria-expanded="true" aria-controls="collapseCard">
+	            <h6 class="m-0 font-weight-bold text-primary">Atur Data Grafik</h6>
+	        </a>
+	        <!-- Card Content - Collapse -->
+	        <div class="collapse show" id="collapseCard">
+	            <div class="card-body">
+	                <form action="{{ url('dashboard') }}" method="">
+						<div class="form-row align-items-center">
+							<label class="row-sm-2 col-form-label">Tahun: </label>
+							<div class="col-sm-3 my-1">
+								<select class="form-control form-control-sm" id="year" name="year" required focus>
+									<option value="{{ $yearSelected }}" selected disabled hidden>{{ $yearSelected }}</option>
+									<?php $dataYears = range(date("Y"), 2000); ?>
+                        			@foreach ($dataYears as $dataYear)
+                            		<option value="{{$dataYear}}">{{$dataYear}}</option>
+                        			@endforeach
+								</select>
+							</div>
 
+							<label class="row-sm-2 col-form-label">Bulan: </label>
+						    <div class="col-sm-4 my-1">
+								<select class="form-control form-control-sm" id="month" name="month" required focus>
+									<option value="{{ $monthValue }}" selected disabled hidden>{{ $monthSelected }}</option>
+									<option value="all">Semua Bulan</option>
+									<option value="1">January</option>
+									<option value="2">February</option>
+									<option value="3">March</option>
+									<option value="4">April</option>
+									<option value="5">May</option>
+									<option value="6">June</option>
+									<option value="7">July</option>
+									<option value="8">August</option>
+									<option value="9">September</option>
+									<option value="10">October</option>
+									<option value="11">November</option>
+									<option value="12">December</option>
+								</select>
+							</div>
+						    <div class="col-sm-2 my-1">
+								<button class="btn btn-primary btn-sm" type="submit">
+									Tampilkan
+								</button>
+							</div>
+						</div>
+					</form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</div>
+
+<!-- Content Row -->
 <div class="row">
 
     <!-- Area Chart -->
@@ -122,6 +179,8 @@
 	Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 	Chart.defaults.global.defaultFontColor = '#858796';
 
+	var label_gas = <?php echo json_encode($label_gas) ?>;
+	var label_galon = <?php echo json_encode($label_galon) ?>;
 	var jumlah_gas = <?php echo json_encode($jumlah_gas) ?>;
 	var jumlah_galon = <?php echo json_encode($jumlah_galon) ?>;
 
@@ -130,7 +189,7 @@
 	var myGasChart = new Chart(getElementID_gas, {
 	  type: 'line',
 	  data: {
-	    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+	    labels: label_gas,
 	    datasets: [{
 	      label: "Jumlah Penjualan Gas",
 	      lineTension: 0.3,
@@ -163,7 +222,7 @@
 	          unit: 'date'
 	        },
 	        gridLines: {
-	          display: false,
+	          display: true,
 	          drawBorder: false
 	        },
 	        ticks: {
@@ -208,7 +267,7 @@
 	      callbacks: {
 	        label: function(tooltipItem, chart) {
 	          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-	          return tooltipItem.yLabel + ' Item terjual';
+	          return tooltipItem.yLabel + ' Item Terjual';
 	        }
 	      }
 	    }
@@ -218,7 +277,7 @@
 	var myGalonChart = new Chart(getElementID_galon, {
 	  type: 'line',
 	  data: {
-	    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+	    labels: label_galon,
 	    datasets: [{
 	      label: "Jumlah Penjualan Galon",
 	      lineTension: 0.3,
@@ -251,7 +310,7 @@
 	          unit: 'date'
 	        },
 	        gridLines: {
-	          display: false,
+	          display: true,
 	          drawBorder: false
 	        },
 	        ticks: {
@@ -296,7 +355,7 @@
 	      callbacks: {
 	        label: function(tooltipItem, chart) {
 	          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-	          return tooltipItem.yLabel + ' Item terjual';
+	          return tooltipItem.yLabel + ' Item Terjual';
 	        }
 	      }
 	    }

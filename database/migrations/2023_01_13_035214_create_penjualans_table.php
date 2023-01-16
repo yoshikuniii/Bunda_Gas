@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('jenis_barang');
             $table->string('merk_barang');
             $table->integer('jumlah_barang');
+            $table->integer('total_harga');
             $table->integer('id_pengirim');
             $table->string('nama_pengirim');
             $table->string('nama_penerima');

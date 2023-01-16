@@ -19,9 +19,19 @@ class penjualanController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Penjualan::orderBy('tanggal_transaksi', 'desc')->paginate();
+        $yearSelected = $request->year;
 
-        return view('penjualan.index')->with('data', $data);
+        if ($yearSelected == null) {
+            $yearSelected = date("Y", time());
+        }
+
+        $data = Penjualan::select("*")
+        ->where(DB::raw("year(tanggal_transaksi)"), $yearSelected)
+        ->orderBy("tanggal_transaksi", "desc")->paginate(400);
+        
+        return view('penjualan.index')
+        ->with('data', $data)
+        ->with('yearSelected', $yearSelected);
     }
 
     /**
@@ -84,6 +94,7 @@ class penjualanController extends Controller
             'jenis_barang' => $request->jenis_barang,
             'merk_barang' => $request->merk_barang,
             'jumlah_barang' => $request->jumlah_barang,
+            'total_harga' => $request->jumlah_barang * Barang::where("merk", "=", $request->merk_barang)->first()->harga_jual,
             'id_pengirim' => Auth::user()->id,
             'nama_pengirim' => Auth::user()->name,
             'nama_penerima' => $request->nama_penerima,
@@ -160,6 +171,7 @@ class penjualanController extends Controller
             'jenis_barang' => $request->jenis_barang,
             'merk_barang' => $request->merk_barang,
             'jumlah_barang' => $request->jumlah_barang,
+            'total_harga' => $request->jumlah_barang * Barang::where("merk", "=", $request->merk_barang)->first()->harga_jual,
             'nama_pengirim' => $request->nama_pengirim,
             'nama_penerima' => $request->nama_penerima,
             'alamat_penerima' => $request->alamat_penerima,

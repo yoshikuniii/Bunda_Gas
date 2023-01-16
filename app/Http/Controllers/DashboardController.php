@@ -14,57 +14,108 @@ use Illuminate\Support\Facades\Session;
 class DashboardController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        
-        /** calculate earnings current month 
-         *  1. ambil semua barang yang ada di table Barang
-         *  2. loop sebanyak barang di table Barang
-         *  3. di dalam loop, 
-         *     for barang in Barang
-         *         jumlah_barang = barang.jumlah_barang
-         *         hitung pendapatan += jumlah_barang * barang.harga
-         *  4. pass ke blade index
-         **/
+        $currentTime = time();
 
-        $currentYear = date("Y", time()); // year in integer
-        $currentMonth = date("n", time()); // month in integer
-        $currentMonthEarning = 0; // for storing our earnings this month
-
-        $arrayOfId_barang= Barang::pluck('id'); // get all goods on table Barang
-                                                // basically, ngambil semua barang yang ada di table Barang
-
-        // loop sebanyak barang dalam table Barang
-        for ($i = 0; $i < count($arrayOfId_barang); $i++) {
-            $jumlah_barang = Penjualan::select(DB::raw("CAST(SUM(jumlah_barang) as int) as jumlah_barang"))
-            ->where(DB::raw("month(tanggal_transaksi)"), "=", $currentMonth)
-            ->where(DB::raw("merk_barang"), "=", Barang::where("id", $i+1)->first()->merk)
-            ->pluck("jumlah_barang");
-            // dd();
-
-            $harga = Barang::where("id", $i+1)->first()->harga_jual; // harga barang berdasarkan id
-            $currentMonthEarning = $currentMonthEarning + ($jumlah_barang[0] * $harga); // hitung pendapatan
+        if ($request->month == null and $request->year == null) {
+            $inputMonth = date("n", $currentTime);
+            $inputYear = date("Y", $currentTime);
+        } else {
+            $inputYear = $request->year;
+            $inputMonth = $request->month;
         }
 
+        if ($request->year == null) {
+            $inputYear = date("Y", $currentTime);
+        }
+
+        if ($request->month == null) {
+            // $inputMonth = date("n", $currentTime);
+            $inputMonth = "all";
+        }
+
+        $totalMonthEarnings = 0;
+        $totalYearEarnings = 0;
+
+        if ($inputMonth == "all") {
+            $totalYearEarnings = Penjualan::select(DB::raw("CAST(SUM(total_harga) as unsigned int) as total_harga"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)->first()->total_harga;
+
+            $totalYearEarnings = $totalYearEarnings;
+            $totalMonthEarnings = $totalYearEarnings / 12;
+
+            // data untuk chart gas
+            $jumlah_gas = Penjualan::select(DB::raw("CAST(SUM(jumlah_barang) as int) as jumlah_gas"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
+            ->where(DB::raw("jenis_barang"), "=", "gas")
+            ->groupBy(DB::raw("month(tanggal_transaksi)"))
+            ->pluck('jumlah_gas');
+
+            // data untuk chart galon
+            $jumlah_galon = Penjualan::select(DB::raw("CAST(SUM(jumlah_barang) as int) as jumlah_galon"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
+            ->where(DB::raw("jenis_barang"), "=", "galon")
+            ->groupBy(DB::raw("month(tanggal_transaksi)"))
+            ->pluck('jumlah_galon');
+
+            $label_gas = array(
+                "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", 
+                "Jul", "Augs", "Sept", "Oct", "Nov", "Des");
+            $label_galon = $label_gas;
+
+            return view('dashboard.index', compact('jumlah_gas', 'jumlah_galon', 'label_gas', 'label_galon'))
+            ->with('totalMonthEarnings', number_format($totalMonthEarnings))
+            ->with('totalYearEarnings', number_format($totalYearEarnings))
+            ->with('yearSelected', $inputYear)
+            ->with('monthSelected', "Semua Bulan")
+            ->with('monthValue', "all");
+
+        } else {
+            $totalYearEarnings = Penjualan::select(DB::raw("CAST(SUM(total_harga) as unsigned int) as total_harga_year"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)->first()->total_harga_year;
+
+            $totalMonthEarnings = Penjualan::select(DB::raw("CAST(SUM(total_harga) as unsigned int) as total_harga_month"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
+            ->where(DB::raw("month(tanggal_transaksi)"), "=", $inputMonth)->first()->total_harga_month;
+
+            // data untuk chart gas
+            $jumlah_gas = Penjualan::select(DB::raw("CAST(SUM(jumlah_barang) as int) as jumlah_gas"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
+            ->where(DB::raw("month(tanggal_transaksi)"), "=", $inputMonth)
+            ->where(DB::raw("jenis_barang"), "=", "gas")
+            ->groupBy(DB::raw("day(tanggal_transaksi)"))
+            ->pluck('jumlah_gas');
+
+            // data untuk chart galon
+            $jumlah_galon = Penjualan::select(DB::raw("CAST(SUM(jumlah_barang) as int) as jumlah_galon"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
+            ->where(DB::raw("month(tanggal_transaksi)"), "=", $inputMonth)
+            ->where(DB::raw("jenis_barang"), "=", "galon")
+            ->groupBy(DB::raw("day(tanggal_transaksi)"))
+            ->pluck('jumlah_galon');
 
 
-        // kode di bawah ini untuk data chart
+            $label_gas = Penjualan::select(DB::raw("day(tanggal_transaksi) as label_gas"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
+            ->where(DB::raw("month(tanggal_transaksi)"), "=", $inputMonth)
+            ->where(DB::raw("jenis_barang"), "=", "gas")
+            ->orderBy(DB::raw("day(tanggal_transaksi)"))
+            ->pluck("label_gas");
 
-        // ambil jumlah gas yang terjual di tahun ini per bulan
-        $jumlah_gas = Penjualan::select(DB::raw("CAST(SUM(jumlah_barang) as int) as jumlah_gas"))
-        ->where(DB::raw("year(tanggal_transaksi)"), "=", $currentYear)
-        ->where(DB::raw("jenis_barang"), "=", "gas")
-        ->groupBy(DB::raw("month(tanggal_transaksi)"))
-        ->pluck('jumlah_gas');
+            $label_galon = Penjualan::select(DB::raw("day(tanggal_transaksi) as label_galon"))
+            ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
+            ->where(DB::raw("month(tanggal_transaksi)"), "=", $inputMonth)
+            ->where(DB::raw("jenis_barang"), "=", "galon")
+            ->orderBy(DB::raw("day(tanggal_transaksi)"))
+            ->pluck("label_galon");
 
-        // ambil jumlah galon yang terjual di tahun ini per bulan
-        $jumlah_galon = Penjualan::select(DB::raw("CAST(SUM(jumlah_barang) as int) as jumlah_galon"))
-        ->where(DB::raw("year(tanggal_transaksi)"), "=", $currentYear)
-        ->where(DB::raw("jenis_barang"), "=", "galon")
-        ->groupBy(DB::raw("month(tanggal_transaksi)"))
-        ->pluck('jumlah_galon');
-
-        return view('dashboard.index', compact('jumlah_gas', 'jumlah_galon'))
-        ->with('pendapatan_bulan_ini', number_format($currentMonthEarning));
+            return view('dashboard.index', compact('jumlah_gas', 'jumlah_galon', 'label_gas', 'label_galon'))
+            ->with('totalMonthEarnings', number_format($totalMonthEarnings))
+            ->with('totalYearEarnings', number_format($totalYearEarnings))
+            ->with('yearSelected', $inputYear)
+            ->with('monthSelected', date('F', mktime(0,0,0, $inputMonth, 10)))
+            ->with('monthValue', $inputMonth);
+        }
     }
 }

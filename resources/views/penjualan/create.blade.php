@@ -1,4 +1,5 @@
 @extends('layout.template')
+@section('title', 'Penjualan - Tambah')
 @section('content')
 
 <!-- Page Heading -->
