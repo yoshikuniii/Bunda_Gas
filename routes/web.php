@@ -18,9 +18,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('');
+// });
 
 # Profile User
 Route::resource('user', UserController::class)->middleware('userLoginStatus'); # menampilkan halaman profil user
@@ -103,6 +103,7 @@ Route::delete('barang/{id}', [BarangController::class, 'destroy'])->middleware('
 
 # menampilkan halaman login
 Route::get('login', [SessionController::class, 'index'])->middleware('userGuestStatus');
+Route::get('/', [SessionController::class, 'index'])->middleware('userGuestStatus');
 
 # 1. Login dan logout
 Route::post('session/login', [SessionController::class, 'login'])->middleware('userGuestStatus');

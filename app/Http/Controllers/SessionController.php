@@ -48,6 +48,8 @@ class SessionController extends Controller
     function create(Request $request) {
         Session::flash('email', $request->email);
         Session::flash('name', $request->name);
+        Session::flash('alamat', $request->alamat);
+        Session::flash('nomor_telepon', $request->nomor_telepon);
 
         $request->validate([
             'name'=>'required',

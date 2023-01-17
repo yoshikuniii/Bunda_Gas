@@ -102,9 +102,18 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{ url('user') }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Profil Saya</span></a>
+                    <span>Profil</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                        <a class="collapse-item" href="{{ url('user') }}">Profil Saya</a>
+                        <a class="collapse-item" href="{{ url('change-password') }}">Ganti Password</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->

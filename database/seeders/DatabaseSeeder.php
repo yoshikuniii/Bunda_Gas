@@ -35,23 +35,24 @@ class DatabaseSeeder extends Seeder
 
         $dataToInsert = round(365 * 5.4); // set berapa banyak data yang ingin dimasukan dari seeder
 
-        for ($i = 0; $i < $dataToInsert; $i++) {
-            $newDate = $startDate + ($i * 60 * 60 * 24);
-            DB::table('penjualans')->insert([
-                'id_transaksi' => time()+$i,
-                'jenis_barang' => $jenisBarang[rand(0,1)],
-                'merk_barang' => $merkBarang[rand(0,3)],
-                // 'id_barang' => rand(1,4),
-                'jumlah_barang' => rand(5,25),
-                'total_harga' => $totalHargaBarang[rand(0,3)],
-                'tanggal_transaksi' => date("Y-m-d H:i:s", $newDate),
-                'id_pengirim' => 1,
-                'nama_pengirim' => $namaOrang[rand(0,5)],
-                'nama_penerima' => $namaOrang[rand(0,5)],
-                'alamat_penerima' => 'alamat',
-                'nomor_telepon_penerima' => '0812-0000-0000'
-            ]);
-        }
+        // uncomment kode di bawah buat ngeseed data penjualan
+        // for ($i = 0; $i < $dataToInsert; $i++) {
+        //     $newDate = $startDate + ($i * 60 * 60 * 24);
+        //     DB::table('penjualans')->insert([
+        //         'id_transaksi' => time()+$i,
+        //         'jenis_barang' => $jenisBarang[rand(0,1)],
+        //         'merk_barang' => $merkBarang[rand(0,3)],
+        //         // 'id_barang' => rand(1,4),
+        //         'jumlah_barang' => rand(5,25),
+        //         'total_harga' => $totalHargaBarang[rand(0,3)],
+        //         'tanggal_transaksi' => date("Y-m-d H:i:s", $newDate),
+        //         'id_pengirim' => 1,
+        //         'nama_pengirim' => $namaOrang[rand(0,5)],
+        //         'nama_penerima' => $namaOrang[rand(0,5)],
+        //         'alamat_penerima' => 'alamat',
+        //         'nomor_telepon_penerima' => '0812-0000-0000'
+        //     ]);
+        // }
 
         // buat akun admin default, silakan ganti passwordnya nanti
         DB::table('users')->insert([
