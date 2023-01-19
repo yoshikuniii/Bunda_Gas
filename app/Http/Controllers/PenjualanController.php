@@ -69,7 +69,7 @@ class penjualanController extends Controller
      */
     public function store(Request $request)
     {
-        Session::flash('jenis_barang', $request->jenis_barang);
+        // Session::flash('jenis_barang', $request->jenis_barang);
         Session::flash('merk_barang', $request->merk_barang);
         Session::flash('jumlah_barang', $request->jumlah_barang);
         Session::flash('tanggal_transaksi', $request->tanggal_transaksi);
@@ -79,19 +79,22 @@ class penjualanController extends Controller
         Session::flash('nomor_telepon_penerima', $request->nomor_telepon_penerima);
 
         $request->validate([
-            'jenis_barang' => 'required',
+            // 'jenis_barang' => 'required',
             'merk_barang' => 'required',
             'jumlah_barang' => 'required|numeric|min:1',
-            'tanggal_transaksi' => 'required',
+            // 'tanggal_transaksi' => 'required',
             'nama_pengirim' => 'required',
             'alamat_penerima' => 'required',
             'nomor_telepon_penerima' => 'required|numeric',
         ]);
 
+        $jenis_barang = $barangId = Barang::where('merk', $request->merk_barang)->first()->jenis;
+
         $data = [
             'id_transaksi' => time(),
-            'tanggal_transaksi' => $request->tanggal_transaksi,
-            'jenis_barang' => $request->jenis_barang,
+            // 'tanggal_transaksi' => $request->tanggal_transaksi,
+            'tanggal_transaksi' => date('Y-m-d H:i:s'),
+            'jenis_barang' => $jenis_barang,
             'merk_barang' => $request->merk_barang,
             'jumlah_barang' => $request->jumlah_barang,
             'total_harga' => $request->jumlah_barang * Barang::where("merk", "=", $request->merk_barang)->first()->harga_jual,
@@ -148,7 +151,7 @@ class penjualanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Session::flash('jenis_barang', $request->jenis_barang);
+        // Session::flash('jenis_barang', $request->jenis_barang);
         Session::flash('merk_barang', $request->merk_barang);
         Session::flash('tanggal_transaksi', $request->tanggal_transaksi);
         Session::flash('nama_pengirim', $request->nama_pengirim);
@@ -157,7 +160,7 @@ class penjualanController extends Controller
         Session::flash('nomor_telepon_penerima', $request->nomor_telepon_penerima);
 
         $request->validate([
-            'jenis_barang' => 'required',
+            // 'jenis_barang' => 'required',
             'merk_barang' => 'required',
             'jumlah_barang' => 'required|numeric|min:1',
             'tanggal_transaksi' => 'required',

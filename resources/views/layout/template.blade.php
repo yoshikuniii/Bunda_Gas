@@ -70,8 +70,8 @@
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" href="{{ url('penjualan') }}">Lihat Logs</a>
-                        <a class="collapse-item" href="{{ url('penjualan/create') }}">Tambah Laporan</a>
+                        <a class="collapse-item" href="{{ url('penjualan') }}">Lihat Data Penjualan</a>
+                        <a class="collapse-item" href="{{ url('penjualan/create') }}">Buat Laporan Penjualan Baru</a>
                     </div>
                 </div>
             </li>

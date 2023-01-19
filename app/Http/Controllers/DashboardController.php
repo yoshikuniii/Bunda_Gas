@@ -31,8 +31,8 @@ class DashboardController extends Controller
         }
 
         if ($request->month == null) {
-            // $inputMonth = date("n", $currentTime);
-            $inputMonth = "all";
+            $inputMonth = date("n", $currentTime);
+            // $inputMonth = "all";
         }
 
         $totalMonthEarnings = 0;
@@ -100,15 +100,18 @@ class DashboardController extends Controller
             ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
             ->where(DB::raw("month(tanggal_transaksi)"), "=", $inputMonth)
             ->where(DB::raw("jenis_barang"), "=", "gas")
-            ->orderBy(DB::raw("day(tanggal_transaksi)"))
+            ->groupBy(DB::raw("day(tanggal_transaksi)"))
             ->pluck("label_gas");
+
 
             $label_galon = Penjualan::select(DB::raw("day(tanggal_transaksi) as label_galon"))
             ->where(DB::raw("year(tanggal_transaksi)"), "=", $inputYear)
             ->where(DB::raw("month(tanggal_transaksi)"), "=", $inputMonth)
             ->where(DB::raw("jenis_barang"), "=", "galon")
-            ->orderBy(DB::raw("day(tanggal_transaksi)"))
+            ->groupBy(DB::raw("day(tanggal_transaksi)"))
             ->pluck("label_galon");
+
+            // dd($label_gas);
 
             return view('dashboard.index', compact('jumlah_gas', 'jumlah_galon', 'label_gas', 'label_galon'))
             ->with('totalMonthEarnings', number_format($totalMonthEarnings))

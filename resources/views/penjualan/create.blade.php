@@ -12,7 +12,7 @@
 <form action='{{ url("penjualan") }}' method='post'>
     @csrf
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <div class="mb-3 row">
+        {{-- <div class="mb-3 row">
             <label for="jenis_gas" class="col-sm-2 col-form-label">Jenis Barang</label>
             <div class="col-sm-10">
                 <select class="form-control" id="jenis_barang" name="jenis_barang" required focus>
@@ -22,7 +22,7 @@
                     @endfor
                 </select>
             </div>
-        </div>
+        </div> --}}
         <div class="mb-3 row">
             <label for="jenis_gas" class="col-sm-2 col-form-label">Merk/Tipe Barang</label>
             <div class="col-sm-10">
@@ -49,7 +49,7 @@
         <div class="mb-3 row">
             <label for="tanggal_transaksi" class="col-sm-2 col-form-label">Tanggal Transaksi</label>
             <div class="col-sm-10">
-                <input type='text' value="{{ date('Y-m-d H:i:s') }}" name="tanggal_transaksi" id="tanggal_transaksi" class="form-control" type="datetime-local" />
+                <input type='text' value="{{ date('Y-m-d H:i:s') }}" name="tanggal_transaksi" id="tanggal_transaksi" class="form-control" type="datetime-local" disabled />
             </div>
         </div>
 

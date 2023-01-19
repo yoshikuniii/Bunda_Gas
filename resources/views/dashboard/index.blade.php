@@ -181,11 +181,13 @@
 
 	var label_gas = <?php echo json_encode($label_gas) ?>;
 	var label_galon = <?php echo json_encode($label_galon) ?>;
+
 	var jumlah_gas = <?php echo json_encode($jumlah_gas) ?>;
 	var jumlah_galon = <?php echo json_encode($jumlah_galon) ?>;
 
 	var getElementID_gas = document.getElementById("chart-gas");
 	var getElementID_galon = document.getElementById("chart-galon");
+	
 	var myGasChart = new Chart(getElementID_gas, {
 	  type: 'line',
 	  data: {
