@@ -26,14 +26,14 @@ class DatabaseSeeder extends Seeder
 
 
         // fungsi ini akan membuat random data untuk penjualan
-        $currentYear = date("Y") - 5;
-        $startDate = strtotime("$currentYear-01-01 00:00:00"); // first date of current year on unix timestamp
-        $jenisBarang = array("gas", "galon");
-        $merkBarang = array("aqua", "vit", "3kg", "12kg");
-        $namaOrang = array("Padil", "Rojak", "Jaka", "Ijas", "Rayan", "Sapwan");
-        $totalHargaBarang = array("18000", "52000", "17000", "16000");
+        // $currentYear = date("Y") - 5;
+        // $startDate = strtotime("$currentYear-01-01 00:00:00"); // first date of current year on unix timestamp
+        // $jenisBarang = array("gas", "galon");
+        // $merkBarang = array("aqua", "vit", "3kg", "12kg");
+        // $namaOrang = array("Padil", "Rojak", "Jaka", "Ijas", "Rayan", "Sapwan");
+        // $totalHargaBarang = array("18000", "52000", "17000", "16000");
 
-        $dataToInsert = round(365 * 5.4); // set berapa banyak data yang ingin dimasukan dari seeder
+        // $dataToInsert = round(365 * 5.4); // set berapa banyak data yang ingin dimasukan dari seeder
 
         // uncomment kode di bawah buat ngeseed data penjualan
         // for ($i = 0; $i < $dataToInsert; $i++) {

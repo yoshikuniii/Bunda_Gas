@@ -237,7 +237,7 @@
 	          padding: 10,
 	          // Include a dollar sign in the ticks
 	          callback: function(value, index, values) {
-	            return (value);
+	            return (value) + ' gas';
 	          }
 	        },
 	        gridLines: {
@@ -325,7 +325,7 @@
 	          padding: 10,
 	          // Include a dollar sign in the ticks
 	          callback: function(value, index, values) {
-	            return (value);
+	            return (value) + ' galon';
 	          }
 	        },
 	        gridLines: {
