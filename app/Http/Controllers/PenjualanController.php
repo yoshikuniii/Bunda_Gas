@@ -171,7 +171,7 @@ class penjualanController extends Controller
 
         $data = [
             'tanggal_transaksi' => $request->tanggal_transaksi,
-            'jenis_barang' => $request->jenis_barang,
+            // 'jenis_barang' => $request->jenis_barang,
             'merk_barang' => $request->merk_barang,
             'jumlah_barang' => $request->jumlah_barang,
             'total_harga' => $request->jumlah_barang * Barang::where("merk", "=", $request->merk_barang)->first()->harga_jual,
